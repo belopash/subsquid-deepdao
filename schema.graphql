@@ -26,3 +26,10 @@ type ChainState @entity {
   democracyProposals: Int
   councilProposals: Int
 }
+
+type TokenHolder @entity {
+  id: ID!
+  free: BigInt
+  reserved: BigInt
+  chain: ChainInfo @index
+}

@@ -59,6 +59,33 @@ export class SubstrateApi {
         return keys.length
     }
 
+    public async getCurrentHolders(
+        size: number,
+        startKey: any
+    ): Promise<
+        {
+            id: string
+            free: bigint
+            reserved: bigint
+        }[]
+    > {
+        if (!this._api) throw new Error('Api not initialized')
+
+        const query = (await this._api.query.system.account.entriesPaged({
+            args: [],
+            pageSize: size,
+            startKey: startKey,
+        })) as any[]
+
+        return query.map((account) => {
+            return {
+                id: account[0].toString() as string,
+                free: BigInt(account[1].data.free.toString()),
+                reserved: BigInt(account[1].data.reserved.toString()),
+            }
+        })
+    }
+
     private async apiAt(hash: Hash | Uint8Array | string): Promise<ApiDecoration<'promise'>> {
         if (!this._api) throw new Error('Api not initialized')
 

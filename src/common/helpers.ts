@@ -1,3 +1,4 @@
+import * as ss58 from '@subsquid/ss58'
 import { Store } from '@subsquid/substrate-processor'
 
 export async function getOrCreate<T extends { id: string }>(
@@ -32,6 +33,17 @@ export async function getOrCreate<T extends { id: string }>(
     }
 
     return e
+}
+
+export function encodeID(ID: Uint8Array, prefix: string | number) {
+    let ret: string | null
+    try {
+        ret = ss58.codec(prefix).encode(ID)
+    } catch (e) {
+        ret = null
+    }
+
+    return ret
 }
 
 export type EntityConstructor<T> = {
