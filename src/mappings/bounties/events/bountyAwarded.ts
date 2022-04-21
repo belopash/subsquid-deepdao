@@ -3,7 +3,7 @@ import { MissingProposalRecord, UnknownVersionError } from '../../../common/erro
 import { EventContext } from '../../../types/support'
 import { ProposalStatus, ProposalType } from '../../../model'
 import { proposalManager } from '../../../managers'
-import { BountiesBountyAwardedEvent, TreasuryBountyAwardedEvent } from '../../../types/events'
+import { BountiesBountyAwardedEvent } from '../../../types/events'
 import { encodeId } from '../../../common/tools'
 import config from '../../../config'
 
@@ -12,29 +12,16 @@ interface BountyEventData {
     beneficiary: Uint8Array
 }
 
-function getTreasuryEventData(ctx: EventContext): BountyEventData {
-    const event = new TreasuryBountyAwardedEvent(ctx)
-    if (event.isV2025) {
-        const [index, beneficiary] = event.asV2025
-        return {
-            index,
-            beneficiary,
-        }
-    } else {
-        throw new UnknownVersionError(event.constructor.name)
-    }
-}
-
-function getBountyEventData(ctx: EventContext): BountyEventData {
+function getEventData(ctx: EventContext): BountyEventData {
     const event = new BountiesBountyAwardedEvent(ctx)
-    if (event.isV2028) {
-        const [index, beneficiary] = event.asV2028
+    if (event.isV1000) {
+        const [index, beneficiary] = event.asV1000
         return {
             index,
             beneficiary,
         }
-    } else if (event.isV9130) {
-        const { index, beneficiary } = event.asV9130
+    } else if (event.isV2010) {
+        const { index, beneficiary } = event.asV2010
         return {
             index,
             beneficiary,
@@ -45,7 +32,6 @@ function getBountyEventData(ctx: EventContext): BountyEventData {
 }
 
 export async function handleAwarded(ctx: EventHandlerContext) {
-    const getEventData = ctx.event.section === 'bounties' ? getBountyEventData : getTreasuryEventData
     const { index, beneficiary } = getEventData(ctx)
 
     const proposal = await proposalManager.updateStatus(ctx, index, ProposalType.Bounty, {
@@ -53,7 +39,7 @@ export async function handleAwarded(ctx: EventHandlerContext) {
         isEnded: true,
     })
     if (!proposal) {
-        (new MissingProposalRecord(ProposalType.Bounty, index, ctx.block.height))
+        new MissingProposalRecord(ProposalType.Bounty, index, ctx.block.height)
         return
     }
 

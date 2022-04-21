@@ -11,13 +11,13 @@ interface TipEventData {
 
 function getEventData(ctx: EventContext): TipEventData {
     const event = new TipsTipSlashedEvent(ctx)
-    if (event.isV2028) {
-        const [hash] = event.asV2028
+    if (event.isV1000) {
+        const [hash] = event.asV1000
         return {
             hash,
         }
-    } else if (event.isV9130) {
-        const { tipHash: hash } = event.asV9130
+    } else if (event.isV2010) {
+        const { tipHash: hash } = event.asV2010
         return {
             hash,
         }
@@ -35,6 +35,6 @@ export async function handleSlashed(ctx: EventHandlerContext) {
         isEnded: true,
     })
     if (!proposal) {
-        (new MissingProposalRecord(ProposalType.Tip, hexHash, ctx.block.height))
+        new MissingProposalRecord(ProposalType.Tip, hexHash, ctx.block.height)
     }
 }

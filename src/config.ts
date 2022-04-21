@@ -1,13 +1,13 @@
 import { ProcessorConfig } from './common/processorConfig'
 
 export default {
-    chainName: 'kusama',
-    prefix: 'kusama',
+    chainName: 'karura',
+    prefix: 'karura',
     dataSource: {
-        archive: 'https://kusama.indexer.gc.subsquid.io/v4/graphql',
-        chain: 'wss://kusama.api.onfinality.io/public-ws',
+        archive: 'https://karura.indexer.gc.subsquid.io/v4/graphql',
+        chain: 'wss://karura.api.onfinality.io/public-ws',
     },
-    typesBundle: 'kusama',
+    typesBundle: 'karura',
     batchSize: 500,
     blockRange: {
         from: 0,

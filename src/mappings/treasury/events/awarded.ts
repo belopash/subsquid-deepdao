@@ -11,13 +11,13 @@ interface TreasuryEventData {
 
 function getEventData(ctx: EventContext): TreasuryEventData {
     const event = new TreasuryAwardedEvent(ctx)
-    if (event.isV1020) {
-        const [index] = event.asV1020
+    if (event.isV1000) {
+        const [index] = event.asV1000
         return {
             index,
         }
-    } else if (event.isV9160) {
-        const { proposalIndex: index } = event.asV9160
+    } else if (event.isV2032) {
+        const { proposalIndex: index } = event.asV2032
         return {
             index,
         }
@@ -34,6 +34,6 @@ export async function handleAwarded(ctx: EventHandlerContext) {
         isEnded: true,
     })
     if (!proposal) {
-        (new MissingProposalRecord(ProposalType.TreasuryProposal, index, ctx.block.height))
+        new MissingProposalRecord(ProposalType.TreasuryProposal, index, ctx.block.height)
     }
 }

@@ -33,7 +33,7 @@ enum ProposalType {
   TechCommitteeProposal
   TreasuryProposal
   Referendum
-  CouncilMotion
+  GeneralCouncilMotion
   Bounty
   Tip
 }
