@@ -5,7 +5,7 @@ import { Call } from '../../types/v1300'
 
 type TechCommitteeCollectiveProposalStorageData = Call
 
-async function getCoucilStorageData(
+async function getStorageData(
     ctx: StorageContext,
     hash: Uint8Array
 ): Promise<TechCommitteeCollectiveProposalStorageData | undefined> {
@@ -15,7 +15,7 @@ async function getCoucilStorageData(
     if (storage.isV900) {
         return (await storage.getAsV900(hash)) as Call
     } else if (storage.isV1001) {
-        return (await storage.getAsV1101(hash)) as Call
+        return (await storage.getAsV1001(hash)) as Call
     } else if (storage.isV1101) {
         return (await storage.getAsV1101(hash)) as Call
     } else if (storage.isV1201) {
@@ -31,5 +31,5 @@ export async function getProposalOf(
     ctx: StorageContext,
     hash: Uint8Array
 ): Promise<TechCommitteeCollectiveProposalStorageData | undefined> {
-    return await getCoucilStorageData(ctx, hash)
+    return await getStorageData(ctx, hash)
 }
