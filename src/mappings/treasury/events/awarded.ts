@@ -11,13 +11,13 @@ interface TreasuryEventData {
 
 function getEventData(ctx: EventContext): TreasuryEventData {
     const event = new TreasuryAwardedEvent(ctx)
-    if (event.isV0) {
-        const [index] = event.asV0
+    if (event.isV900) {
+        const [index] = event.asV900
         return {
             index,
         }
-    } else if (event.isV9170) {
-        const { proposalIndex: index } = event.asV9170
+    } else if (event.isV1300) {
+        const { proposalIndex: index } = event.asV1300
         return {
             index,
         }

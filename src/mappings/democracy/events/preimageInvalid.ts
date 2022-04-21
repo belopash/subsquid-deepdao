@@ -12,14 +12,14 @@ interface PreimageEventData {
 
 function getEventData(ctx: EventContext): PreimageEventData {
     const event = new DemocracyPreimageInvalidEvent(ctx)
-    if (event.isV0) {
-        const [hash, index] = event.asV0
+    if (event.isV900) {
+        const [hash, index] = event.asV900
         return {
             hash,
             index,
         }
-    } else if (event.isV9140) {
-        const { proposalHash: hash, refIndex: index } = event.asV9140
+    } else if (event.isV1201) {
+        const { proposalHash: hash, refIndex: index } = event.asV1201
         return {
             hash,
             index,

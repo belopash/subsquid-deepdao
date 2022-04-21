@@ -3,14 +3,14 @@ import { MissingProposalRecord, UnknownVersionError } from '../../../common/erro
 import { EventContext } from '../../../types/support'
 import { ProposalStatus, ProposalType } from '../../../model'
 import { proposalManager } from '../../../managers'
-import { TechnicalCommitteeClosedEvent } from '../../../types/events'
+import { TechCommitteeCollectiveClosedEvent } from '../../../types/events'
 
 function getEventData(ctx: EventContext): Uint8Array {
-    const event = new TechnicalCommitteeClosedEvent(ctx)
-    if (event.isV0) {
-        return event.asV0[0]
-    } else if (event.isV9140) {
-        return event.asV9140.proposalHash
+    const event = new TechCommitteeCollectiveClosedEvent(ctx)
+    if (event.isV900) {
+        return event.asV900[0]
+    } else if (event.isV1201) {
+        return event.asV1201.proposalHash
     } else {
         throw new UnknownVersionError(event.constructor.name)
     }

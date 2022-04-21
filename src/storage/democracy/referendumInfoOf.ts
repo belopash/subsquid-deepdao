@@ -1,8 +1,7 @@
 import { UnknownVersionError } from '../../common/errors'
 import { StorageContext } from '../../types/support'
 import { DemocracyReferendumInfoOfStorage } from '../../types/storage'
-import * as v1055 from '../../types/v0'
-import * as v9111 from '../../types/v9110'
+import * as v1055 from '../../types/v900'
 
 type Threshold = 'SuperMajorityApprove' | 'SuperMajorityAgainst' | 'SimpleMajority'
 
@@ -25,8 +24,8 @@ type ReferendumStorageData = FinishedReferendumData | OngoingReferendumData
 // eslint-disable-next-line sonarjs/cognitive-complexity
 async function getStorageData(ctx: StorageContext, index: number): Promise<ReferendumStorageData | undefined> {
     const storage = new DemocracyReferendumInfoOfStorage(ctx)
-    if (storage.isV0) {
-        const storageData = await storage.getAsV0(index)
+    if (storage.isV900) {
+        const storageData = await storage.getAsV900(index)
         if (!storageData) return undefined
 
         const { __kind: status } = storageData
@@ -40,29 +39,7 @@ async function getStorageData(ctx: StorageContext, index: number): Promise<Refer
                 threshold: threshold.__kind,
             }
         } else {
-            const { end, approved } = (storageData as v1055.ReferendumInfo_Finished).value
-            return {
-                status,
-                end,
-                approved,
-            }
-        }
-    } else if (storage.isV9110) {
-        const storageData = await storage.getAsV9110(index)
-        if (!storageData) return undefined
-
-        const { __kind: status } = storageData
-        if (status === 'Ongoing') {
-            const { proposalHash: hash, end, delay, threshold } = (storageData as v9111.ReferendumInfo_Ongoing).value
-            return {
-                status,
-                hash,
-                end,
-                delay,
-                threshold: threshold.__kind,
-            }
-        } else {
-            const { end, approved } = storageData as v9111.ReferendumInfo_Finished
+            const { end, approved } = storageData as v1055.ReferendumInfo_Finished
             return {
                 status,
                 end,

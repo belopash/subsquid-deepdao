@@ -32,8 +32,8 @@ typegen: ./typegen/versions.json
 
 explore:
 	@npx squid-substrate-metadata-explorer \
-		--chain wss://rpc.polkadot.io \
-		--archive https://polkadot.indexer.gc.subsquid.io/v4/graphql \
+		--chain wss://moonbeam.api.onfinality.io/public-ws \
+		--archive https://moonbeam-beta.indexer.gc.subsquid.io/v4/graphql \
 		--out ./typegen/versions.json
 
 

@@ -15,14 +15,14 @@ interface DemocracyProposalEventData {
 
 function getEventData(ctx: EventContext): DemocracyProposalEventData {
     const event = new DemocracyProposedEvent(ctx)
-    if (event.isV0) {
-        const [index, deposit] = event.asV0
+    if (event.isV900) {
+        const [index, deposit] = event.asV900
         return {
             index,
             deposit,
         }
-    } else if (event.isV9140) {
-        const { proposalIndex: index, deposit } = event.asV9140
+    } else if (event.isV1201) {
+        const { proposalIndex: index, deposit } = event.asV1201
         return {
             index,
             deposit,

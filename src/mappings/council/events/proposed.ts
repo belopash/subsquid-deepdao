@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EventHandlerContext, toHex } from '@subsquid/substrate-processor'
-import { CouncilProposedEvent } from '../../../types/events'
+import { CouncilCollectiveProposedEvent } from '../../../types/events'
 import { StorageNotExists, UnknownVersionError } from '../../../common/errors'
 import { EventContext } from '../../../types/support'
 import { ProposalStatus, ProposalType } from '../../../model'
@@ -17,17 +17,17 @@ interface CouncilProposalEventData {
 }
 
 function getEventData(ctx: EventContext): CouncilProposalEventData {
-    const event = new CouncilProposedEvent(ctx)
-    if (event.isV0) {
-        const [proposer, index, hash, threshold] = event.asV0
+    const event = new CouncilCollectiveProposedEvent(ctx)
+    if (event.isV900) {
+        const [proposer, index, hash, threshold] = event.asV900
         return {
             proposer,
             index,
             hash,
             threshold,
         }
-    } else if (event.isV9140) {
-        const { account, proposalIndex, proposalHash, threshold } = event.asV9140
+    } else if (event.isV1201) {
+        const { account, proposalIndex, proposalHash, threshold } = event.asV1201
         return {
             proposer: account,
             index: proposalIndex,

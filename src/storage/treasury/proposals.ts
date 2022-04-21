@@ -13,8 +13,8 @@ async function getStorageData(ctx: StorageContext, index: number): Promise<Treas
     const storage = new TreasuryProposalsStorage(ctx)
     if (!storage.isExists) return undefined
 
-    if (storage.isV0) {
-        return await storage.getAsV0(index)
+    if (storage.isV900) {
+        return await storage.getAsV900(index)
     } else {
         throw new UnknownVersionError(storage.constructor.name)
     }

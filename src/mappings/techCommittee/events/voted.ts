@@ -4,26 +4,26 @@ import { encodeId } from '../../../common/tools'
 import config from '../../../config'
 import { proposalManager, voteManager } from '../../../managers'
 import { ProposalType, Vote, VoteDecision } from '../../../model'
-import { TechnicalCommitteeVotedEvent } from '../../../types/events'
+import { TechCommitteeCollectiveVotedEvent } from '../../../types/events'
 import { EventContext } from '../../../types/support'
 
-interface TechnicalCommitteeVoteEventData {
+interface TechCommitteeCollectiveVoteEventData {
     voter: Uint8Array
     hash: Uint8Array
     decision: boolean
 }
 
-function getEventData(ctx: EventContext): TechnicalCommitteeVoteEventData {
-    const event = new TechnicalCommitteeVotedEvent(ctx)
-    if (event.isV0) {
-        const [voter, hash, decision] = event.asV0
+function getEventData(ctx: EventContext): TechCommitteeCollectiveVoteEventData {
+    const event = new TechCommitteeCollectiveVotedEvent(ctx)
+    if (event.isV900) {
+        const [voter, hash, decision] = event.asV900
         return {
             voter,
             hash,
             decision,
         }
-    } else if (event.isV9140) {
-        const { account, proposalHash, voted } = event.asV9140
+    } else if (event.isV1201) {
+        const { account, proposalHash, voted } = event.asV1201
         return {
             voter: account,
             hash: proposalHash,

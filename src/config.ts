@@ -1,13 +1,13 @@
 import { ProcessorConfig } from './common/processorConfig'
 
 export default {
-    chainName: 'polkadot',
-    prefix: 'polkadot',
+    chainName: 'moonbeam',
+    prefix: 'moonbeam',
     dataSource: {
-        archive: 'https://polkadot.indexer.gc.subsquid.io/v4/graphql',
-        chain: 'wss://polkadot.api.onfinality.io/public-ws',
+        archive: 'https://moonbeam-beta.indexer.gc.subsquid.io/v4/graphql',
+        chain: 'wss://moonbeam.api.onfinality.io/public-ws',
     },
-    typesBundle: 'polkadot',
+    typesBundle: 'moonbeam',
     batchSize: 500,
     blockRange: {
         from: 0,
