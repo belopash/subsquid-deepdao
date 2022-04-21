@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EventHandlerContext } from '@subsquid/substrate-processor'
-import { BountiesBountyProposedEvent, TreasuryBountyProposedEvent } from '../../../types/events'
+import { BountiesBountyProposedEvent } from '../../../types/events'
 import { StorageNotExists, UnknownVersionError } from '../../../common/errors'
 import { EventContext } from '../../../types/support'
 import { ProposalStatus, ProposalType } from '../../../model'
@@ -13,27 +13,15 @@ interface BountyEventData {
     index: number
 }
 
-function getTreasuryEventData(ctx: EventContext): BountyEventData {
-    const event = new TreasuryBountyProposedEvent(ctx)
-    if (event.isV2025) {
-        const index = event.asV2025
-        return {
-            index,
-        }
-    } else {
-        throw new UnknownVersionError(event.constructor.name)
-    }
-}
-
-function getBountyEventData(ctx: EventContext): BountyEventData {
+function getEventData(ctx: EventContext): BountyEventData {
     const event = new BountiesBountyProposedEvent(ctx)
-    if (event.isV2028) {
-        const index = event.asV2028
+    if (event.isV2000) {
+        const index = event.asV2000
         return {
             index,
         }
-    } else if (event.isV9130) {
-        const { index } = event.asV9130
+    } else if (event.isV2011) {
+        const { index } = event.asV2011
         return {
             index,
         }
@@ -43,12 +31,11 @@ function getBountyEventData(ctx: EventContext): BountyEventData {
 }
 
 export async function handleProposed(ctx: EventHandlerContext) {
-    const getEventData = ctx.event.section === 'bounties' ? getBountyEventData : getTreasuryEventData
     const { index } = getEventData(ctx)
 
     const storageData = await storage.bounties.getBounties(ctx, index)
     if (!storageData) {
-        (new StorageNotExists(ProposalType.Bounty, index, ctx.block.height))
+        new StorageNotExists(ProposalType.Bounty, index, ctx.block.height)
         return
     }
 

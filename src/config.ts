@@ -1,13 +1,13 @@
 import { ProcessorConfig } from './common/processorConfig'
 
 export default {
-    chainName: 'kusama',
-    prefix: 'kusama',
+    chainName: 'acala',
+    prefix: 'acala',
     dataSource: {
-        archive: 'https://kusama.indexer.gc.subsquid.io/v4/graphql',
-        chain: 'wss://kusama.api.onfinality.io/public-ws',
+        archive: 'https://acala.indexer.gc.subsquid.io/v4/graphql',
+        chain: 'wss://acala-polkadot.api.onfinality.io/public-ws',
     },
-    typesBundle: 'kusama',
+    typesBundle: 'acala',
     batchSize: 500,
     blockRange: {
         from: 0,

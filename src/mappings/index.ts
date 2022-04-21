@@ -1,8 +1,8 @@
 import democracy from './democracy'
-import council from './council'
+import generalCouncil from './generalCouncil'
 import treasury from './treasury'
 import tips from './tips'
 import bounties from './bounties'
 import techComittee from './techCommittee'
 
-export { democracy, council, treasury, tips, bounties, techComittee }
+export { democracy, generalCouncil, treasury, tips, bounties, techComittee }

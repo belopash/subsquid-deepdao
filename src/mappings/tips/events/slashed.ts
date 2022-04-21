@@ -11,13 +11,13 @@ interface TipEventData {
 
 function getEventData(ctx: EventContext): TipEventData {
     const event = new TipsTipSlashedEvent(ctx)
-    if (event.isV2028) {
-        const [hash] = event.asV2028
+    if (event.isV2000) {
+        const [hash] = event.asV2000
         return {
             hash,
         }
-    } else if (event.isV9130) {
-        const { tipHash: hash } = event.asV9130
+    } else if (event.isV2011) {
+        const { tipHash: hash } = event.asV2011
         return {
             hash,
         }

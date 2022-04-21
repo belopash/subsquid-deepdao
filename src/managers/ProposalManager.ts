@@ -52,7 +52,7 @@ interface ReferendumData {
     status: ProposalStatus
 }
 
-interface CouncilMotionData {
+interface GeneralCouncilMotionData {
     type: ProposalType.CouncilMotion
     index: number
     hash: string
@@ -112,7 +112,7 @@ interface PreimageData {
 type ProposalData =
     | DemocracyProposalData
     | ReferendumData
-    | CouncilMotionData
+    | GeneralCouncilMotionData
     | TechCommitteeData
     | TipData
     | BountyData
@@ -292,7 +292,7 @@ export class ProposalManager extends Manager<Proposal> {
 
     private async createCoucilMotion(
         ctx: EventHandlerContext,
-        data: CouncilMotionData | TechCommitteeData
+        data: GeneralCouncilMotionData | TechCommitteeData
     ): Promise<Proposal> {
         const { index, type, status, threshold, hash, call, proposer } = data
 

@@ -18,16 +18,16 @@ interface TechnicalCommitteeProposalEventData {
 
 function getEventData(ctx: EventContext): TechnicalCommitteeProposalEventData {
     const event = new TechnicalCommitteeProposedEvent(ctx)
-    if (event.isV1020) {
-        const [proposer, index, hash, threshold] = event.asV1020
+    if (event.isV2000) {
+        const [proposer, index, hash, threshold] = event.asV2000
         return {
             proposer,
             index,
             hash,
             threshold,
         }
-    } else if (event.isV9130) {
-        const { account, proposalIndex, proposalHash, threshold } = event.asV9130
+    } else if (event.isV2011) {
+        const { account, proposalIndex, proposalHash, threshold } = event.asV2011
         return {
             proposer: account,
             index: proposalIndex,

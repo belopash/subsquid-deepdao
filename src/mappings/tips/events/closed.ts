@@ -3,36 +3,23 @@ import { MissingProposalRecord, UnknownVersionError } from '../../../common/erro
 import { EventContext } from '../../../types/support'
 import { ProposalStatus, ProposalType } from '../../../model'
 import { proposalManager } from '../../../managers'
-import { TipsTipClosedEvent, TreasuryTipClosedEvent } from '../../../types/events'
+import { TipsTipClosedEvent } from '../../../types/events'
 
 interface TipEventData {
     hash: Uint8Array
     reward: bigint
 }
 
-function getTreasuryEventData(ctx: EventContext): TipEventData {
-    const event = new TreasuryTipClosedEvent(ctx)
-    if (event.isV1038) {
-        const [hash, , reward] = event.asV1038
-        return {
-            hash,
-            reward,
-        }
-    } else {
-        throw new UnknownVersionError(event.constructor.name)
-    }
-}
-
-function getTipsEventData(ctx: EventContext): TipEventData {
+function getEventData(ctx: EventContext): TipEventData {
     const event = new TipsTipClosedEvent(ctx)
-    if (event.isV2028) {
-        const [hash, , reward] = event.asV2028
+    if (event.isV2000) {
+        const [hash, , reward] = event.asV2000
         return {
             hash,
             reward,
         }
-    } else if (event.isV9130) {
-        const { tipHash: hash, payout: reward } = event.asV9130
+    } else if (event.isV2011) {
+        const { tipHash: hash, payout: reward } = event.asV2011
         return {
             hash,
             reward,
@@ -43,7 +30,6 @@ function getTipsEventData(ctx: EventContext): TipEventData {
 }
 
 export async function handleClosed(ctx: EventHandlerContext) {
-    const getEventData = ctx.event.section === 'tips' ? getTipsEventData : getTreasuryEventData
     const { hash, reward } = getEventData(ctx)
 
     const hexHash = toHex(hash)
@@ -52,7 +38,7 @@ export async function handleClosed(ctx: EventHandlerContext) {
         isEnded: true,
     })
     if (!proposal) {
-        (new MissingProposalRecord(ProposalType.Tip, hexHash, ctx.block.height))
+        new MissingProposalRecord(ProposalType.Tip, hexHash, ctx.block.height)
         return
     }
 

@@ -7,10 +7,10 @@ import { DemocracyCancelledEvent } from '../../../types/events'
 
 function getEventData(ctx: EventContext): number {
     const event = new DemocracyCancelledEvent(ctx)
-    if (event.isV1020) {
-        return event.asV1020
-    } else if (event.isV9130) {
-        return event.asV9130.refIndex
+    if (event.isV2000) {
+        return event.asV2000
+    } else if (event.isV2011) {
+        return event.asV2011.refIndex
     } else {
         throw new UnknownVersionError(event.constructor.name)
     }

@@ -11,13 +11,13 @@ interface TreasuryEventData {
 
 function getEventData(ctx: EventContext): TreasuryEventData {
     const event = new TreasuryRejectedEvent(ctx)
-    if (event.isV1032) {
-        const [index] = event.asV1032
+    if (event.isV2000) {
+        const [index] = event.asV2000
         return {
             index,
         }
-    } else if (event.isV9160) {
-        const { proposalIndex: index } = event.asV9160
+    } else if (event.isV2032) {
+        const { proposalIndex: index } = event.asV2032
         return {
             index,
         }
@@ -34,6 +34,6 @@ export async function handleRejected(ctx: EventHandlerContext) {
         isEnded: true,
     })
     if (!proposal) {
-        (new MissingProposalRecord(ProposalType.TreasuryProposal, index, ctx.block.height))
+        new MissingProposalRecord(ProposalType.TreasuryProposal, index, ctx.block.height)
     }
 }

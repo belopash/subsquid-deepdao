@@ -15,15 +15,15 @@ interface TechnicalCommitteeVoteEventData {
 
 function getEventData(ctx: EventContext): TechnicalCommitteeVoteEventData {
     const event = new TechnicalCommitteeVotedEvent(ctx)
-    if (event.isV1020) {
-        const [voter, hash, decision] = event.asV1020
+    if (event.isV2000) {
+        const [voter, hash, decision] = event.asV2000
         return {
             voter,
             hash,
             decision,
         }
-    } else if (event.isV9130) {
-        const { account, proposalHash, voted } = event.asV9130
+    } else if (event.isV2011) {
+        const { account, proposalHash, voted } = event.asV2011
         return {
             voter: account,
             hash: proposalHash,

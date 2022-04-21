@@ -103,11 +103,11 @@ interface TransferEvent {
 function getTransferEvent(ctx: EventHandlerContext): TransferEvent {
     // instanciate type-safe facade around event data
     let event = new BalancesTransferEvent(ctx)
-    if (event.isV1020) {
-        let [from, to, amount, fee] = event.asV1020
+    if (event.isV2000) {
+        let [from, to, amount, fee] = event.asV2000
         return {from, to, amount}
-    } else if (event.isV1050) {
-        let [from, to, amount] = event.asV1050
+    } else if (event.isV2000) {
+        let [from, to, amount] = event.asV2000
         return {from, to, amount}
     } else {
         // This cast will assert, 
