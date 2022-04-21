@@ -1,13 +1,13 @@
 import { ProcessorConfig } from './common/processorConfig'
 
 export default {
-    chainName: 'moonbeam',
-    prefix: 'moonbeam',
+    chainName: 'moonriver',
+    prefix: 'moonriver',
     dataSource: {
-        archive: 'https://moonbeam-beta.indexer.gc.subsquid.io/v4/graphql',
-        chain: 'wss://moonbeam.api.onfinality.io/public-ws',
+        archive: 'https://moonriver-beta.indexer.gc.subsquid.io/v4/graphql',
+        chain: 'wss://moonriver.api.onfinality.io/public-ws',
     },
-    typesBundle: 'moonbeam',
+    typesBundle: 'moonriver',
     batchSize: 500,
     blockRange: {
         from: 0,

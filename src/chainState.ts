@@ -5,6 +5,8 @@ import {
     CouncilCollectiveMembersStorage,
     CouncilCollectiveProposalCountStorage,
     DemocracyPublicPropCountStorage,
+    Instance1CollectiveMembersStorage,
+    Instance1CollectiveProposalCountStorage,
 } from './types/storage'
 import { getApi } from './common/api'
 import { PERIOD } from './consts/consts'
@@ -85,7 +87,7 @@ async function getLastChainState(store: Store) {
 
 async function getCouncilCollectiveMembers(ctx: StorageContext) {
     const storage = new CouncilCollectiveMembersStorage(ctx)
-    if (!storage.isExists) return undefined
+    if (!storage.isExists) return await getInstance1CollectiveMembers(ctx)
 
     if (storage.isV900) {
         return await storage.getAsV900()
@@ -94,12 +96,34 @@ async function getCouncilCollectiveMembers(ctx: StorageContext) {
     throw new UnknownVersionError(storage.constructor.name)
 }
 
+async function getInstance1CollectiveMembers(ctx: StorageContext) {
+    const storage = new Instance1CollectiveMembersStorage(ctx)
+    if (!storage.isExists) return undefined
+
+    if (storage.isV49) {
+        return await storage.getAsV49()
+    }
+
+    throw new UnknownVersionError(storage.constructor.name)
+}
+
 async function getCouncilCollectiveProposalsCount(ctx: StorageContext) {
     const storage = new CouncilCollectiveProposalCountStorage(ctx)
-    if (!storage.isExists) return undefined
+    if (!storage.isExists) return await getInstance1CollectiveProposalsCount(ctx)
 
     if (storage.isV900) {
         return await storage.getAsV900()
+    }
+
+    throw new UnknownVersionError(storage.constructor.name)
+}
+
+async function getInstance1CollectiveProposalsCount(ctx: StorageContext) {
+    const storage = new Instance1CollectiveProposalCountStorage(ctx)
+    if (!storage.isExists) return undefined
+
+    if (storage.isV49) {
+        return await storage.getAsV49()
     }
 
     throw new UnknownVersionError(storage.constructor.name)
@@ -109,8 +133,8 @@ async function getDemocracyProposalsCount(ctx: StorageContext) {
     const storage = new DemocracyPublicPropCountStorage(ctx)
     if (!storage.isExists) return undefined
 
-    if (storage.isV900) {
-        return await storage.getAsV900()
+    if (storage.isV49) {
+        return await storage.getAsV49()
     }
 
     throw new UnknownVersionError(storage.constructor.name)
@@ -120,8 +144,8 @@ async function getTotalIssuance(ctx: StorageContext) {
     const storage = new BalancesTotalIssuanceStorage(ctx)
     if (!storage.isExists) return undefined
 
-    if (storage.isV900) {
-        return await storage.getAsV900()
+    if (storage.isV49) {
+        return await storage.getAsV49()
     }
 
     throw new UnknownVersionError(storage.constructor.name)
@@ -130,8 +154,8 @@ async function getTotalIssuance(ctx: StorageContext) {
 // function getHoldersCount(ctx: EventHandlerContext) {
 //     const storage = new BalancesTotalIssuanceStorage(ctx)
 
-//     if (storage.isV900) {
-//         return await storage.getasV900()
+//     if (storage.isV49) {
+//         return await storage.getasV49()
 //     }
 
 //     return undefined

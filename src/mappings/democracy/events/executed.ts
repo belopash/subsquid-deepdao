@@ -9,9 +9,15 @@ function getEventData(ctx: EventContext): number {
     const event = new DemocracyExecutedEvent(ctx)
     if (event.isV900) {
         return event.asV900[0]
+    } else if (event.isV49) {
+        return event.asV49[0]
+    } else if (event.isV701) {
+        return event.asV701[0]
     } else if (event.isV1201) {
         return event.asV1201.refIndex
     } else if (event.isV1300) {
+        return event.asV1300.refIndex
+    } else if (event.isV1401) {
         return event.asV1300.refIndex
     } else {
         throw new UnknownVersionError(event.constructor.name)

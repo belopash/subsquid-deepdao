@@ -2,6 +2,9 @@ import assert from 'assert'
 import {EventContext, Result, deprecateLatest} from './support'
 import * as v1201 from './v1201'
 import * as v1300 from './v1300'
+import * as v1401 from './v1401'
+import * as v49 from './v49'
+import * as v701 from './v701'
 import * as v900 from './v900'
 
 export class CouncilCollectiveApprovedEvent {
@@ -10,19 +13,19 @@ export class CouncilCollectiveApprovedEvent {
   }
 
   /**
-   * A motion was approved by the required threshold.
-   * \[proposal_hash\]
+   *  A motion was approved by the required threshold.
+   *  \[proposal_hash\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('councilCollective.Approved') === '21ea0c8f2488eafafdea1de92b54cd17d8b1caff525e37616abf0ff93f11531d'
   }
 
   /**
-   * A motion was approved by the required threshold.
-   * \[proposal_hash\]
+   *  A motion was approved by the required threshold.
+   *  \[proposal_hash\]
    */
-  get asV900(): v900.H256 {
-    assert(this.isV900)
+  get asV49(): Uint8Array {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -58,19 +61,19 @@ export class CouncilCollectiveClosedEvent {
   }
 
   /**
-   * A proposal was closed because its threshold was reached or after its duration was up.
-   * \[proposal_hash, yes, no\]
+   *  A proposal was closed because its threshold was reached or after its duration was up.
+   *  \[proposal_hash, yes, no\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('councilCollective.Closed') === '7d509ca6ee36d401f2d5410aa32038550c256cc3ce4b34cdfe1f8adea0e1679c'
   }
 
   /**
-   * A proposal was closed because its threshold was reached or after its duration was up.
-   * \[proposal_hash, yes, no\]
+   *  A proposal was closed because its threshold was reached or after its duration was up.
+   *  \[proposal_hash, yes, no\]
    */
-  get asV900(): [v900.H256, number, number] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, number, number] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -106,19 +109,19 @@ export class CouncilCollectiveDisapprovedEvent {
   }
 
   /**
-   * A motion was not approved by the required threshold.
-   * \[proposal_hash\]
+   *  A motion was not approved by the required threshold.
+   *  \[proposal_hash\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('councilCollective.Disapproved') === '21ea0c8f2488eafafdea1de92b54cd17d8b1caff525e37616abf0ff93f11531d'
   }
 
   /**
-   * A motion was not approved by the required threshold.
-   * \[proposal_hash\]
+   *  A motion was not approved by the required threshold.
+   *  \[proposal_hash\]
    */
-  get asV900(): v900.H256 {
-    assert(this.isV900)
+  get asV49(): Uint8Array {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -151,6 +154,23 @@ export class CouncilCollectiveDisapprovedEvent {
 export class CouncilCollectiveExecutedEvent {
   constructor(private ctx: EventContext) {
     assert(this.ctx.event.name === 'councilCollective.Executed')
+  }
+
+  /**
+   *  A motion was executed; result will be `Ok` if it returned without error.
+   *  \[proposal_hash, result\]
+   */
+  get isV49(): boolean {
+    return this.ctx._chain.getEventHash('councilCollective.Executed') === 'f98b87482f886396f52d6875083e9b201ac0e3f97d718c37613afad51e85a9b7'
+  }
+
+  /**
+   *  A motion was executed; result will be `Ok` if it returned without error.
+   *  \[proposal_hash, result\]
+   */
+  get asV49(): [Uint8Array, Result<null, v49.DispatchError>] {
+    assert(this.isV49)
+    return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
   /**
@@ -200,14 +220,29 @@ export class CouncilCollectiveExecutedEvent {
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
-  get isLatest(): boolean {
-    deprecateLatest()
-    return this.isV1300
+  /**
+   * A motion was executed; result will be `Ok` if it returned without error.
+   */
+  get isV1401(): boolean {
+    return this.ctx._chain.getEventHash('councilCollective.Executed') === 'e7bba992b17737087cf79037068ecde07b0ef6afb29be3ddbe1d7afe57e365aa'
   }
 
-  get asLatest(): {proposalHash: v1300.H256, result: Result<null, v1300.DispatchError>} {
+  /**
+   * A motion was executed; result will be `Ok` if it returned without error.
+   */
+  get asV1401(): {proposalHash: v1401.H256, result: Result<null, v1401.DispatchError>} {
+    assert(this.isV1401)
+    return this.ctx._chain.decodeEvent(this.ctx.event)
+  }
+
+  get isLatest(): boolean {
     deprecateLatest()
-    return this.asV1300
+    return this.isV1401
+  }
+
+  get asLatest(): {proposalHash: v1401.H256, result: Result<null, v1401.DispatchError>} {
+    deprecateLatest()
+    return this.asV1401
   }
 }
 
@@ -217,21 +252,21 @@ export class CouncilCollectiveProposedEvent {
   }
 
   /**
-   * A motion (given hash) has been proposed (by given account) with a threshold (given
-   * `MemberCount`).
-   * \[account, proposal_index, proposal_hash, threshold\]
+   *  A motion (given hash) has been proposed (by given account) with a threshold (given
+   *  `MemberCount`).
+   *  \[account, proposal_index, proposal_hash, threshold\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('councilCollective.Proposed') === 'a613c04c45835d6c8d0d8935013395b895fbdea266e8525d81b3e176c482215c'
   }
 
   /**
-   * A motion (given hash) has been proposed (by given account) with a threshold (given
-   * `MemberCount`).
-   * \[account, proposal_index, proposal_hash, threshold\]
+   *  A motion (given hash) has been proposed (by given account) with a threshold (given
+   *  `MemberCount`).
+   *  \[account, proposal_index, proposal_hash, threshold\]
    */
-  get asV900(): [v900.H160, number, v900.H256, number] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, number, Uint8Array, number] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -269,21 +304,21 @@ export class CouncilCollectiveVotedEvent {
   }
 
   /**
-   * A motion (given hash) has been voted on by given account, leaving
-   * a tally (yes votes and no votes given respectively as `MemberCount`).
-   * \[account, proposal_hash, voted, yes, no\]
+   *  A motion (given hash) has been voted on by given account, leaving
+   *  a tally (yes votes and no votes given respectively as `MemberCount`).
+   *  \[account, proposal_hash, voted, yes, no\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('councilCollective.Voted') === '6ebdb08adf34a07ba1fe77ab63c9bbeeb0196f65844713e59a373a8e8b2527f0'
   }
 
   /**
-   * A motion (given hash) has been voted on by given account, leaving
-   * a tally (yes votes and no votes given respectively as `MemberCount`).
-   * \[account, proposal_hash, voted, yes, no\]
+   *  A motion (given hash) has been voted on by given account, leaving
+   *  a tally (yes votes and no votes given respectively as `MemberCount`).
+   *  \[account, proposal_hash, voted, yes, no\]
    */
-  get asV900(): [v900.H160, v900.H256, boolean, number, number] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, Uint8Array, boolean, number, number] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -321,17 +356,17 @@ export class DemocracyCancelledEvent {
   }
 
   /**
-   * A referendum has been cancelled. \[ref_index\]
+   *  A referendum has been cancelled. \[ref_index\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.Cancelled') === '0a0f30b1ade5af5fade6413c605719d59be71340cf4884f65ee9858eb1c38f6c'
   }
 
   /**
-   * A referendum has been cancelled. \[ref_index\]
+   *  A referendum has been cancelled. \[ref_index\]
    */
-  get asV900(): number {
-    assert(this.isV900)
+  get asV49(): number {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -364,6 +399,36 @@ export class DemocracyCancelledEvent {
 export class DemocracyExecutedEvent {
   constructor(private ctx: EventContext) {
     assert(this.ctx.event.name === 'democracy.Executed')
+  }
+
+  /**
+   *  A proposal has been enacted. \[ref_index, is_ok\]
+   */
+  get isV49(): boolean {
+    return this.ctx._chain.getEventHash('democracy.Executed') === 'f267e1fa04f32dd15473e3a6d2514ae684bd7ba5516d192ba70e4d49211868aa'
+  }
+
+  /**
+   *  A proposal has been enacted. \[ref_index, is_ok\]
+   */
+  get asV49(): [number, boolean] {
+    assert(this.isV49)
+    return this.ctx._chain.decodeEvent(this.ctx.event)
+  }
+
+  /**
+   *  A proposal has been enacted. \[ref_index, result\]
+   */
+  get isV701(): boolean {
+    return this.ctx._chain.getEventHash('democracy.Executed') === '8d7c54bbac5b548a558504b413146fe5bff0b9275a2e7f4c831a148273ee173a'
+  }
+
+  /**
+   *  A proposal has been enacted. \[ref_index, result\]
+   */
+  get asV701(): [number, Result<null, v701.DispatchError>] {
+    assert(this.isV701)
+    return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
   /**
@@ -411,14 +476,29 @@ export class DemocracyExecutedEvent {
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
-  get isLatest(): boolean {
-    deprecateLatest()
-    return this.isV1300
+  /**
+   * A proposal has been enacted.
+   */
+  get isV1401(): boolean {
+    return this.ctx._chain.getEventHash('democracy.Executed') === '98c3caaef1b84143deea16c761096200c5e0e631c6a3776ed012edc9788cf6e2'
   }
 
-  get asLatest(): {refIndex: number, result: Result<null, v1300.DispatchError>} {
+  /**
+   * A proposal has been enacted.
+   */
+  get asV1401(): {refIndex: number, result: Result<null, v1401.DispatchError>} {
+    assert(this.isV1401)
+    return this.ctx._chain.decodeEvent(this.ctx.event)
+  }
+
+  get isLatest(): boolean {
     deprecateLatest()
-    return this.asV1300
+    return this.isV1401
+  }
+
+  get asLatest(): {refIndex: number, result: Result<null, v1401.DispatchError>} {
+    deprecateLatest()
+    return this.asV1401
   }
 }
 
@@ -428,17 +508,17 @@ export class DemocracyNotPassedEvent {
   }
 
   /**
-   * A proposal has been rejected by referendum. \[ref_index\]
+   *  A proposal has been rejected by referendum. \[ref_index\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.NotPassed') === '0a0f30b1ade5af5fade6413c605719d59be71340cf4884f65ee9858eb1c38f6c'
   }
 
   /**
-   * A proposal has been rejected by referendum. \[ref_index\]
+   *  A proposal has been rejected by referendum. \[ref_index\]
    */
-  get asV900(): number {
-    assert(this.isV900)
+  get asV49(): number {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -474,17 +554,17 @@ export class DemocracyPassedEvent {
   }
 
   /**
-   * A proposal has been approved by referendum. \[ref_index\]
+   *  A proposal has been approved by referendum. \[ref_index\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.Passed') === '0a0f30b1ade5af5fade6413c605719d59be71340cf4884f65ee9858eb1c38f6c'
   }
 
   /**
-   * A proposal has been approved by referendum. \[ref_index\]
+   *  A proposal has been approved by referendum. \[ref_index\]
    */
-  get asV900(): number {
-    assert(this.isV900)
+  get asV49(): number {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -520,19 +600,19 @@ export class DemocracyPreimageInvalidEvent {
   }
 
   /**
-   * A proposal could not be executed because its preimage was invalid.
-   * \[proposal_hash, ref_index\]
+   *  A proposal could not be executed because its preimage was invalid.
+   *  \[proposal_hash, ref_index\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.PreimageInvalid') === 'a86a85822cc09ae7b3b9587f12944d2954476832a499d679c195ffaa86c16212'
   }
 
   /**
-   * A proposal could not be executed because its preimage was invalid.
-   * \[proposal_hash, ref_index\]
+   *  A proposal could not be executed because its preimage was invalid.
+   *  \[proposal_hash, ref_index\]
    */
-  get asV900(): [v900.H256, number] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, number] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -568,19 +648,19 @@ export class DemocracyPreimageMissingEvent {
   }
 
   /**
-   * A proposal could not be executed because its preimage was missing.
-   * \[proposal_hash, ref_index\]
+   *  A proposal could not be executed because its preimage was missing.
+   *  \[proposal_hash, ref_index\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.PreimageMissing') === 'a86a85822cc09ae7b3b9587f12944d2954476832a499d679c195ffaa86c16212'
   }
 
   /**
-   * A proposal could not be executed because its preimage was missing.
-   * \[proposal_hash, ref_index\]
+   *  A proposal could not be executed because its preimage was missing.
+   *  \[proposal_hash, ref_index\]
    */
-  get asV900(): [v900.H256, number] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, number] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -616,17 +696,17 @@ export class DemocracyPreimageNotedEvent {
   }
 
   /**
-   * A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\]
+   *  A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.PreimageNoted') === '317eeaadc76ca7d763e634bff31da2b98d72376d5e842a0cded1cf421e0694c1'
   }
 
   /**
-   * A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\]
+   *  A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\]
    */
-  get asV900(): [v900.H256, v900.H160, bigint] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, Uint8Array, bigint] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -662,19 +742,19 @@ export class DemocracyPreimageReapedEvent {
   }
 
   /**
-   * A registered preimage was removed and the deposit collected by the reaper.
-   * \[proposal_hash, provider, deposit, reaper\]
+   *  A registered preimage was removed and the deposit collected by the reaper.
+   *  \[proposal_hash, provider, deposit, reaper\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.PreimageReaped') === 'c1f551cd38e3880870dfafd43056cf3e144a85c870b0b513c2a042c7e4634bf7'
   }
 
   /**
-   * A registered preimage was removed and the deposit collected by the reaper.
-   * \[proposal_hash, provider, deposit, reaper\]
+   *  A registered preimage was removed and the deposit collected by the reaper.
+   *  \[proposal_hash, provider, deposit, reaper\]
    */
-  get asV900(): [v900.H256, v900.H160, bigint, v900.H160] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, Uint8Array, bigint, Uint8Array] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -710,19 +790,19 @@ export class DemocracyPreimageUsedEvent {
   }
 
   /**
-   * A proposal preimage was removed and used (the deposit was returned).
-   * \[proposal_hash, provider, deposit\]
+   *  A proposal preimage was removed and used (the deposit was returned).
+   *  \[proposal_hash, provider, deposit\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.PreimageUsed') === '317eeaadc76ca7d763e634bff31da2b98d72376d5e842a0cded1cf421e0694c1'
   }
 
   /**
-   * A proposal preimage was removed and used (the deposit was returned).
-   * \[proposal_hash, provider, deposit\]
+   *  A proposal preimage was removed and used (the deposit was returned).
+   *  \[proposal_hash, provider, deposit\]
    */
-  get asV900(): [v900.H256, v900.H160, bigint] {
-    assert(this.isV900)
+  get asV49(): [Uint8Array, Uint8Array, bigint] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -758,17 +838,17 @@ export class DemocracyProposedEvent {
   }
 
   /**
-   * A motion has been proposed by a public account. \[proposal_index, deposit\]
+   *  A motion has been proposed by a public account. \[proposal_index, deposit\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.Proposed') === 'a0e51e81445baa317309351746e010ed2435e30ff7e53fbb2cf59283f3b9c536'
   }
 
   /**
-   * A motion has been proposed by a public account. \[proposal_index, deposit\]
+   *  A motion has been proposed by a public account. \[proposal_index, deposit\]
    */
-  get asV900(): [number, bigint] {
-    assert(this.isV900)
+  get asV49(): [number, bigint] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -804,17 +884,17 @@ export class DemocracyStartedEvent {
   }
 
   /**
-   * A referendum has begun. \[ref_index, threshold\]
+   *  A referendum has begun. \[ref_index, threshold\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.Started') === '31dcae10175d30392db6fc8a872e963baae4bcf3ee28dfd38b1653a0751c031f'
   }
 
   /**
-   * A referendum has begun. \[ref_index, threshold\]
+   *  A referendum has begun. \[ref_index, threshold\]
    */
-  get asV900(): [number, v900.VoteThreshold] {
-    assert(this.isV900)
+  get asV49(): [number, v49.VoteThreshold] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -850,19 +930,17 @@ export class DemocracyTabledEvent {
   }
 
   /**
-   * A public proposal has been tabled for referendum vote. \[proposal_index, deposit,
-   * depositors\]
+   *  A public proposal has been tabled for referendum vote. \[proposal_index, deposit, depositors\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('democracy.Tabled') === 'a02fb718124f3ad2168551f865aebb4f81eb1cfe14c9fb743a86ef04f294e29b'
   }
 
   /**
-   * A public proposal has been tabled for referendum vote. \[proposal_index, deposit,
-   * depositors\]
+   *  A public proposal has been tabled for referendum vote. \[proposal_index, deposit, depositors\]
    */
-  get asV900(): [number, bigint, v900.H160[]] {
-    assert(this.isV900)
+  get asV49(): [number, bigint, Uint8Array[]] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -1088,14 +1166,29 @@ export class TechCommitteeCollectiveExecutedEvent {
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
-  get isLatest(): boolean {
-    deprecateLatest()
-    return this.isV1300
+  /**
+   * A motion was executed; result will be `Ok` if it returned without error.
+   */
+  get isV1401(): boolean {
+    return this.ctx._chain.getEventHash('techCommitteeCollective.Executed') === 'e7bba992b17737087cf79037068ecde07b0ef6afb29be3ddbe1d7afe57e365aa'
   }
 
-  get asLatest(): {proposalHash: v1300.H256, result: Result<null, v1300.DispatchError>} {
+  /**
+   * A motion was executed; result will be `Ok` if it returned without error.
+   */
+  get asV1401(): {proposalHash: v1401.H256, result: Result<null, v1401.DispatchError>} {
+    assert(this.isV1401)
+    return this.ctx._chain.decodeEvent(this.ctx.event)
+  }
+
+  get isLatest(): boolean {
     deprecateLatest()
-    return this.asV1300
+    return this.isV1401
+  }
+
+  get asLatest(): {proposalHash: v1401.H256, result: Result<null, v1401.DispatchError>} {
+    deprecateLatest()
+    return this.asV1401
   }
 }
 
@@ -1209,17 +1302,17 @@ export class TreasuryAwardedEvent {
   }
 
   /**
-   * Some funds have been allocated. \[proposal_index, award, beneficiary\]
+   *  Some funds have been allocated. \[proposal_index, award, beneficiary\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('treasury.Awarded') === '1ca1bbccad98d48e2621a47ca30161714034e352019415514ef1338743ce0fd8'
   }
 
   /**
-   * Some funds have been allocated. \[proposal_index, award, beneficiary\]
+   *  Some funds have been allocated. \[proposal_index, award, beneficiary\]
    */
-  get asV900(): [number, bigint, v900.H160] {
-    assert(this.isV900)
+  get asV49(): [number, bigint, Uint8Array] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -1255,17 +1348,17 @@ export class TreasuryProposedEvent {
   }
 
   /**
-   * New proposal. \[proposal_index\]
+   *  New proposal. \[proposal_index\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('treasury.Proposed') === '0a0f30b1ade5af5fade6413c605719d59be71340cf4884f65ee9858eb1c38f6c'
   }
 
   /**
-   * New proposal. \[proposal_index\]
+   *  New proposal. \[proposal_index\]
    */
-  get asV900(): number {
-    assert(this.isV900)
+  get asV49(): number {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 
@@ -1301,17 +1394,17 @@ export class TreasuryRejectedEvent {
   }
 
   /**
-   * A proposal was rejected; funds were slashed. \[proposal_index, slashed\]
+   *  A proposal was rejected; funds were slashed. \[proposal_index, slashed\]
    */
-  get isV900(): boolean {
+  get isV49(): boolean {
     return this.ctx._chain.getEventHash('treasury.Rejected') === 'a0e51e81445baa317309351746e010ed2435e30ff7e53fbb2cf59283f3b9c536'
   }
 
   /**
-   * A proposal was rejected; funds were slashed. \[proposal_index, slashed\]
+   *  A proposal was rejected; funds were slashed. \[proposal_index, slashed\]
    */
-  get asV900(): [number, bigint] {
-    assert(this.isV900)
+  get asV49(): [number, bigint] {
+    assert(this.isV49)
     return this.ctx._chain.decodeEvent(this.ctx.event)
   }
 

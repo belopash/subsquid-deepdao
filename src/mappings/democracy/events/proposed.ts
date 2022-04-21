@@ -15,8 +15,8 @@ interface DemocracyProposalEventData {
 
 function getEventData(ctx: EventContext): DemocracyProposalEventData {
     const event = new DemocracyProposedEvent(ctx)
-    if (event.isV900) {
-        const [index, deposit] = event.asV900
+    if (event.isV49) {
+        const [index, deposit] = event.asV49
         return {
             index,
             deposit,

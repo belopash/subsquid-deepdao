@@ -28,7 +28,28 @@ interface DemocracyVoteCallData {
 function getCallData(ctx: ExtrinsicHandlerContext): DemocracyVoteCallData {
     const event = new DemocracyVoteCall(ctx)
 
-    if (event.isV900) {
+    if (event.isV49) {
+        const { refIndex, vote } = event.asV49
+        if (vote.__kind === 'Standard') {
+            return {
+                index: refIndex,
+                vote: {
+                    type: 'standard',
+                    value: vote.value.vote,
+                    balance: vote.value.balance,
+                },
+            }
+        } else {
+            return {
+                index: refIndex,
+                vote: {
+                    type: 'split',
+                    aye: vote.value.aye,
+                    nay: vote.value.nay,
+                },
+            }
+        }
+    } else if (event.isV900) {
         const { refIndex, vote } = event.asV900
         if (vote.__kind === 'Standard') {
             return {

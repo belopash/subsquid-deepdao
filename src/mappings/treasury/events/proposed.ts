@@ -15,8 +15,8 @@ interface TreasuryProposalEventData {
 
 function getEventData(ctx: EventContext): TreasuryProposalEventData {
     const event = new TreasuryProposedEvent(ctx)
-    if (event.isV900) {
-        const index = event.asV900
+    if (event.isV49) {
+        const index = event.asV49
         return {
             index,
         }

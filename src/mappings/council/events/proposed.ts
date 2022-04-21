@@ -18,8 +18,8 @@ interface CouncilProposalEventData {
 
 function getEventData(ctx: EventContext): CouncilProposalEventData {
     const event = new CouncilCollectiveProposedEvent(ctx)
-    if (event.isV900) {
-        const [proposer, index, hash, threshold] = event.asV900
+    if (event.isV49) {
+        const [proposer, index, hash, threshold] = event.asV49
         return {
             proposer,
             index,

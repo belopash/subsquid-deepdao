@@ -12,8 +12,8 @@ interface PreimageEventData {
 
 function getEventData(ctx: EventContext): PreimageEventData {
     const event = new DemocracyPreimageInvalidEvent(ctx)
-    if (event.isV900) {
-        const [hash, index] = event.asV900
+    if (event.isV49) {
+        const [hash, index] = event.asV49
         return {
             hash,
             index,

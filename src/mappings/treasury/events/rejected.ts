@@ -11,8 +11,8 @@ interface TreasuryEventData {
 
 function getEventData(ctx: EventContext): TreasuryEventData {
     const event = new TreasuryRejectedEvent(ctx)
-    if (event.isV900) {
-        const [index] = event.asV900
+    if (event.isV49) {
+        const [index] = event.asV49
         return {
             index,
         }

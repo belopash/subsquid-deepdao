@@ -7,8 +7,8 @@ import { DemocracyPassedEvent } from '../../../types/events'
 
 function getEventData(ctx: EventContext): number {
     const event = new DemocracyPassedEvent(ctx)
-    if (event.isV900) {
-        return event.asV900
+    if (event.isV49) {
+        return event.asV49
     } else if (event.isV1201) {
         return event.asV1201.refIndex
     } else {

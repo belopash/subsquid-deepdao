@@ -1,18 +1,22 @@
 {
   "outDir": "../src/types",
   "chainVersions": "./versions.json",
-  "typesBundle": "moonbeam",
+  "typesBundle": "moonriver",
   "storage": [
     "CouncilCollective.Members",
     "CouncilCollective.ProposalCount",
+    "Instance1Collective.Members",
+    "Instance1Collective.ProposalCount",
     "Democracy.PublicPropCount",
     "Balances.TotalIssuance",
     "Democracy.Preimages",
     "Democracy.PublicProps",
     "Democracy.ReferendumInfoOf",
     "CouncilCollective.ProposalOf",
+    "Instance1Collective.ProposalOf",
     "Treasury.Proposals",
-    "TechCommitteeCollective.ProposalOf"
+    "TechCommitteeCollective.ProposalOf",
+    "Instance2Collective.ProposalOf"
   ],
   "events": [
     "democracy.Proposed",

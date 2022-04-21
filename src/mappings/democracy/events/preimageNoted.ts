@@ -28,8 +28,8 @@ interface PreimageStorageData {
 
 function getEventData(ctx: EventContext): PreimageEventData {
     const event = new DemocracyPreimageNotedEvent(ctx)
-    if (event.isV900) {
-        const [hash, provider, deposit] = event.asV900
+    if (event.isV49) {
+        const [hash, provider, deposit] = event.asV49
         return {
             hash,
             provider,
@@ -55,7 +55,19 @@ function decodeProposal(chain: Chain, data: Uint8Array): ProposalCall {
 async function getStorageData(ctx: StorageContext, hash: Uint8Array): Promise<PreimageStorageData | undefined> {
     const storage = new DemocracyPreimagesStorage(ctx)
 
-    if (storage.isV900) {
+    if (storage.isV49) {
+        const storageData = await storage.getAsV49(hash)
+        if (!storageData || storageData.__kind === 'Missing') return undefined
+
+        const { provider, deposit, since, data } = storageData.value
+
+        return {
+            data,
+            provider,
+            deposit,
+            block: since,
+        }
+    } else if (storage.isV900) {
         const storageData = await storage.getAsV900(hash)
         if (!storageData || storageData.__kind === 'Missing') return undefined
 

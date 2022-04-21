@@ -244,7 +244,7 @@ const chains = [
         website: 'https://manta.network',
     },
     {
-        name: 'moonbeam',
+        name: 'moonriver',
         displayName: 'Moonbeam',
         prefix: 1284,
         tokens: [
@@ -256,7 +256,7 @@ const chains = [
         paraId: 2004,
         relay: 'polkadot',
         genesisHash: '0xfe58ea77779b7abda7da4ec526d14db9b1e9cd40a217c34892af80a9b332b76d',
-        website: 'https://moonbeam.network',
+        website: 'https://moonriver.network',
     },
     {
         name: 'nodle',
@@ -684,7 +684,7 @@ const chains = [
         paraId: 2023,
         relay: 'kusama',
         genesisHash: '0x401a1f9dca3da46f5c4091016c8a2f26dcea05865116b286f60f668207d1474b',
-        website: 'https://moonbeam.network',
+        website: 'https://moonriver.network',
     },
     {
         name: 'heiko',

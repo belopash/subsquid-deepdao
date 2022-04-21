@@ -7,8 +7,8 @@ import { CouncilCollectiveClosedEvent } from '../../../types/events'
 
 function getEventData(ctx: EventContext): Uint8Array {
     const event = new CouncilCollectiveClosedEvent(ctx)
-    if (event.isV900) {
-        return event.asV900[0]
+    if (event.isV49) {
+        return event.asV49[0]
     } else if (event.isV1201) {
         return event.asV1201.proposalHash
     } else {

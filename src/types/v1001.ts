@@ -2,7 +2,7 @@ import type {Result} from './support'
 
 export type H256 = Uint8Array
 
-export type Call = Call_System | Call_ParachainSystem | Call_Timestamp | Call_Balances | Call_ParachainStaking | Call_AuthorInherent | Call_AuthorFilter | Call_AuthorMapping | Call_Utility | Call_Proxy | Call_MaintenanceMode | Call_Identity | Call_Sudo | Call_EVM | Call_Ethereum | Call_Scheduler | Call_Democracy | Call_CouncilCollective | Call_TechCommitteeCollective | Call_Treasury | Call_CrowdloanRewards
+export type Call = Call_System | Call_ParachainSystem | Call_Timestamp | Call_Balances | Call_ParachainStaking | Call_AuthorInherent | Call_AuthorFilter | Call_AuthorMapping | Call_Utility | Call_Proxy | Call_MaintenanceMode | Call_Identity | Call_EVM | Call_Ethereum | Call_Scheduler | Call_Democracy | Call_CouncilCollective | Call_TechCommitteeCollective | Call_Treasury | Call_CrowdloanRewards
 
 export interface Call_System {
   __kind: 'System'
@@ -62,11 +62,6 @@ export interface Call_MaintenanceMode {
 export interface Call_Identity {
   __kind: 'Identity'
   value: IdentityCall
-}
-
-export interface Call_Sudo {
-  __kind: 'Sudo'
-  value: SudoCall
 }
 
 export interface Call_EVM {
@@ -477,7 +472,7 @@ export type ParachainStakingCall = ParachainStakingCall_set_staking_expectations
  */
 export interface ParachainStakingCall_set_staking_expectations {
   __kind: 'set_staking_expectations'
-  expectations: Range_173
+  expectations: Range_172
 }
 
 /**
@@ -485,7 +480,7 @@ export interface ParachainStakingCall_set_staking_expectations {
  */
 export interface ParachainStakingCall_set_inflation {
   __kind: 'set_inflation'
-  schedule: Range_174
+  schedule: Range_173
 }
 
 /**
@@ -1444,82 +1439,6 @@ export interface IdentityCall_remove_sub {
  */
 export interface IdentityCall_quit_sub {
   __kind: 'quit_sub'
-}
-
-/**
- * Contains one variant per dispatchable that can be called by an extrinsic.
- */
-export type SudoCall = SudoCall_sudo | SudoCall_sudo_unchecked_weight | SudoCall_set_key | SudoCall_sudo_as
-
-/**
- * Authenticates the sudo key and dispatches a function call with `Root` origin.
- * 
- * The dispatch origin for this call must be _Signed_.
- * 
- * # <weight>
- * - O(1).
- * - Limited storage reads.
- * - One DB write (event).
- * - Weight of derivative `call` execution + 10,000.
- * # </weight>
- */
-export interface SudoCall_sudo {
-  __kind: 'sudo'
-  call: Call
-}
-
-/**
- * Authenticates the sudo key and dispatches a function call with `Root` origin.
- * This function does not check the weight of the call, and instead allows the
- * Sudo user to specify the weight of the call.
- * 
- * The dispatch origin for this call must be _Signed_.
- * 
- * # <weight>
- * - O(1).
- * - The weight of this call is defined by the caller.
- * # </weight>
- */
-export interface SudoCall_sudo_unchecked_weight {
-  __kind: 'sudo_unchecked_weight'
-  call: Call
-  weight: bigint
-}
-
-/**
- * Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo
- * key.
- * 
- * The dispatch origin for this call must be _Signed_.
- * 
- * # <weight>
- * - O(1).
- * - Limited storage reads.
- * - One DB change.
- * # </weight>
- */
-export interface SudoCall_set_key {
-  __kind: 'set_key'
-  new: AccountId20
-}
-
-/**
- * Authenticates the sudo key and dispatches a function call with `Signed` origin from
- * a given account.
- * 
- * The dispatch origin for this call must be _Signed_.
- * 
- * # <weight>
- * - O(1).
- * - Limited storage reads.
- * - One DB write (event).
- * - Weight of derivative `call` execution + 10,000.
- * # </weight>
- */
-export interface SudoCall_sudo_as {
-  __kind: 'sudo_as'
-  who: AccountId20
-  call: Call
 }
 
 /**
@@ -2649,13 +2568,13 @@ export interface ParachainInherentData {
 
 export type AccountId20 = Uint8Array
 
-export interface Range_173 {
+export interface Range_172 {
   min: bigint
   ideal: bigint
   max: bigint
 }
 
-export interface Range_174 {
+export interface Range_173 {
   min: Perbill
   ideal: Perbill
   max: Perbill
