@@ -1,13 +1,13 @@
 import { ProcessorConfig } from './common/processorConfig'
 
 export default {
-    chainName: 'polkadot',
-    prefix: 'polkadot',
+    chainName: 'bifrost',
+    prefix: 'bifrost',
     dataSource: {
-        archive: 'https://polkadot.indexer.gc.subsquid.io/v4/graphql',
-        chain: 'wss://polkadot.api.onfinality.io/public-ws',
+        archive: 'https://bifrost.indexer.gc.subsquid.io/v4/graphql',
+        chain: 'wss://bifrost-parachain.api.onfinality.io/public-ws',
     },
-    typesBundle: 'polkadot',
+    typesBundle: 'bifrost',
     batchSize: 500,
     blockRange: {
         from: 0,

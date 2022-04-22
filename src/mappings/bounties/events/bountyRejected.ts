@@ -3,33 +3,21 @@ import { MissingProposalRecord, UnknownVersionError } from '../../../common/erro
 import { EventContext } from '../../../types/support'
 import { ProposalStatus, ProposalType } from '../../../model'
 import { proposalManager } from '../../../managers'
-import { BountiesBountyRejectedEvent, TreasuryBountyRejectedEvent } from '../../../types/events'
+import { BountiesBountyRejectedEvent } from '../../../types/events'
 
 interface BountyEventData {
     index: number
 }
 
-function getTreasuryEventData(ctx: EventContext): BountyEventData {
-    const event = new TreasuryBountyRejectedEvent(ctx)
-    if (event.isV25) {
-        const [index] = event.asV25
-        return {
-            index,
-        }
-    } else {
-        throw new UnknownVersionError(event.constructor.name)
-    }
-}
-
-function getBountyEventData(ctx: EventContext): BountyEventData {
+function getEventData(ctx: EventContext): BountyEventData {
     const event = new BountiesBountyRejectedEvent(ctx)
-    if (event.isV28) {
-        const [index] = event.asV28
+    if (event.isV803) {
+        const [index] = event.asV803
         return {
             index,
         }
-    } else if (event.isV9140) {
-        const { index } = event.asV9140
+    } else if (event.isV916) {
+        const { index } = event.asV916
         return {
             index,
         }
@@ -39,7 +27,6 @@ function getBountyEventData(ctx: EventContext): BountyEventData {
 }
 
 export async function handleRejected(ctx: EventHandlerContext) {
-    const getEventData = ctx.event.section === 'bounties' ? getBountyEventData : getTreasuryEventData
     const { index } = getEventData(ctx)
 
     const proposal = await proposalManager.updateStatus(ctx, index, ProposalType.Bounty, {

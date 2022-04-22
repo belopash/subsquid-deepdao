@@ -7,14 +7,16 @@ import { CouncilExecutedEvent } from '../../../types/events'
 
 function getEventData(ctx: EventContext): Uint8Array {
     const event = new CouncilExecutedEvent(ctx)
-    if (event.isV0) {
-        return event.asV0[0]
-    } else if (event.isV9110) {
-        return event.asV9110[0]
-    } else if (event.isV9140) {
-        return event.asV9140.proposalHash
-    } else if (event.isV9170) {
-        return event.asV9170.proposalHash
+    if (event.isV803) {
+        return event.asV803[0]
+    } else if (event.isV906) {
+        return event.asV906[0]
+    } else if (event.isV916) {
+        return event.asV916.proposalHash
+    } else if (event.isV926) {
+        return event.asV926.proposalHash
+    } else if (event.isV932) {
+        return event.asV932.proposalHash
     } else {
         throw new UnknownVersionError(event.constructor.name)
     }

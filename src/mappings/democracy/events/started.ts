@@ -25,14 +25,14 @@ function fixThreshold(ctx: EventHandlerContext) {
 
 function getEventData(ctx: EventContext): ReferendumEventData {
     const event = new DemocracyStartedEvent(ctx)
-    if (event.isV0) {
-        const [index, threshold] = event.asV0
+    if (event.isV803) {
+        const [index, threshold] = event.asV803
         return {
             index,
             threshold: threshold.__kind,
         }
-    } else if (event.isV9140) {
-        const { refIndex: index, threshold } = event.asV9140
+    } else if (event.isV916) {
+        const { refIndex: index, threshold } = event.asV916
         return {
             index,
             threshold: threshold.__kind,

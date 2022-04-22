@@ -15,15 +15,15 @@ interface CouncilVoteEventData {
 
 function getEventData(ctx: EventContext): CouncilVoteEventData {
     const event = new CouncilVotedEvent(ctx)
-    if (event.isV0) {
-        const [voter, hash, decision] = event.asV0
+    if (event.isV803) {
+        const [voter, hash, decision] = event.asV803
         return {
             voter,
             hash,
             decision,
         }
-    } else if (event.isV9140) {
-        const { account, proposalHash, voted } = event.asV9140
+    } else if (event.isV916) {
+        const { account, proposalHash, voted } = event.asV916
         return {
             voter: account,
             hash: proposalHash,

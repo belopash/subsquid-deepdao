@@ -7,16 +7,18 @@ import { DemocracyExecutedEvent } from '../../../types/events'
 
 function getEventData(ctx: EventContext): number {
     const event = new DemocracyExecutedEvent(ctx)
-    if (event.isV0) {
-        return event.asV0[0]
-    } else if (event.isV9090) {
-        return event.asV9090[0]
-    } else if (event.isV9110) {
-        return event.asV9110[0]
-    } else if (event.isV9140) {
-        return event.asV9140.refIndex
-    } else if (event.isV9170) {
-        return event.asV9170.refIndex
+    if (event.isV803) {
+        return event.asV803[0]
+    } else if (event.isV804) {
+        return event.asV804[0]
+    } else if (event.isV906) {
+        return event.asV906[0]
+    } else if (event.isV916) {
+        return event.asV916.refIndex
+    } else if (event.isV926) {
+        return event.asV926.refIndex
+    } else if (event.isV932) {
+        return event.asV932.refIndex
     } else {
         throw new UnknownVersionError(event.constructor.name)
     }

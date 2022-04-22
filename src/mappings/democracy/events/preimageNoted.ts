@@ -8,7 +8,7 @@ import { ProposalStatus, ProposalType } from '../../../model'
 import { encodeId, parseProposalCall } from '../../../common/tools'
 import config from '../../../config'
 import { Chain } from '@subsquid/substrate-processor/lib/chain'
-import { Call } from '../../../types/v9180'
+import { Call } from '../../../types/v932'
 import { proposalManager } from '../../../managers'
 
 type ProposalCall = Call
@@ -28,15 +28,15 @@ interface PreimageStorageData {
 
 function getEventData(ctx: EventContext): PreimageEventData {
     const event = new DemocracyPreimageNotedEvent(ctx)
-    if (event.isV0) {
-        const [hash, provider, deposit] = event.asV0
+    if (event.isV803) {
+        const [hash, provider, deposit] = event.asV803
         return {
             hash,
             provider,
             deposit,
         }
-    } else if (event.isV9140) {
-        const { proposalHash: hash, who: provider, deposit } = event.asV9140
+    } else if (event.isV916) {
+        const { proposalHash: hash, who: provider, deposit } = event.asV916
         return {
             hash,
             provider,
@@ -55,8 +55,8 @@ function decodeProposal(chain: Chain, data: Uint8Array): ProposalCall {
 async function getStorageData(ctx: StorageContext, hash: Uint8Array): Promise<PreimageStorageData | undefined> {
     const storage = new DemocracyPreimagesStorage(ctx)
 
-    if (storage.isV0) {
-        const storageData = await storage.getAsV0(hash)
+    if (storage.isV803) {
+        const storageData = await storage.getAsV803(hash)
         if (!storageData || storageData.__kind === 'Missing') return undefined
 
         const { provider, deposit, since, data } = storageData.value
@@ -67,8 +67,8 @@ async function getStorageData(ctx: StorageContext, hash: Uint8Array): Promise<Pr
             deposit,
             block: since,
         }
-    } else if (storage.isV9110) {
-        const storageData = await storage.getAsV9110(hash)
+    } else if (storage.isV906) {
+        const storageData = await storage.getAsV906(hash)
         if (!storageData || storageData.__kind === 'Missing') return undefined
 
         const { provider, deposit, since, data } = storageData

@@ -1,11 +1,10 @@
 import { UnknownVersionError } from '../../common/errors'
 import { CouncilProposalOfStorage, Instance1CollectiveProposalOfStorage } from '../../types/storage'
 import { StorageContext } from '../../types/support'
-import { Call } from '../../types/v9170'
+import { Call } from '../../types/v932'
 
 type CouncilProposalStorageData = Call
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 async function getInstanceStorageData(
     ctx: StorageContext,
     hash: Uint8Array
@@ -13,57 +12,24 @@ async function getInstanceStorageData(
     const storage = new Instance1CollectiveProposalOfStorage(ctx)
     if (!storage.isExists) return undefined
 
-    if (storage.isV0) {
-        return (await storage.getAsV0(hash)) as Call
-    } else if (storage.isV5) {
-        return (await storage.getAsV5(hash)) as Call
-    } else if (storage.isV6) {
-        return (await storage.getAsV6(hash)) as Call
-    } else if (storage.isV7) {
-        return (await storage.getAsV7(hash)) as Call
-    } else if (storage.isV9) {
-        return (await storage.getAsV9(hash)) as Call
-    } else if (storage.isV10) {
-        return (await storage.getAsV10(hash)) as Call
-    } else if (storage.isV11) {
-        return (await storage.getAsV11(hash)) as Call
-    } else if (storage.isV13) {
-        return (await storage.getAsV13(hash)) as Call
-    } else if (storage.isV14) {
-        return (await storage.getAsV14(hash)) as Call
-    } else if (storage.isV15) {
-        return (await storage.getAsV15(hash)) as Call
-    } else if (storage.isV17) {
-        return (await storage.getAsV17(hash)) as Call
-    } else if (storage.isV18) {
-        return (await storage.getAsV18(hash)) as Call
-    } else if (storage.isV23) {
-        return (await storage.getAsV23(hash)) as Call
-    } else if (storage.isV24) {
-        return (await storage.getAsV24(hash)) as Call
-    } else if (storage.isV25) {
-        return (await storage.getAsV25(hash)) as Call
-    } else if (storage.isV26) {
-        return (await storage.getAsV26(hash)) as Call
-    } else if (storage.isV28) {
-        return (await storage.getAsV28(hash)) as Call
-    } else if (storage.isV29) {
-        return (await storage.getAsV29(hash)) as Call
-    } else if (storage.isV30) {
-        return (await storage.getAsV30(hash)) as Call
-    } else if (storage.isV9050) {
-        return (await storage.getAsV9050(hash)) as Call
-    } else if (storage.isV9080) {
-        return (await storage.getAsV9080(hash)) as Call
-    } else if (storage.isV9090) {
-        return (await storage.getAsV9090(hash)) as Call
-    } else if (storage.isV9100) {
-        return (await storage.getAsV9100(hash)) as Call
+    if (storage.isV803) {
+        return (await storage.getAsV803(hash)) as Call
+    } else if (storage.isV804) {
+        return (await storage.getAsV804(hash)) as Call
+    } else if (storage.isV805) {
+        return (await storage.getAsV805(hash)) as Call
+    } else if (storage.isV900) {
+        return (await storage.getAsV900(hash)) as Call
+    } else if (storage.isV901) {
+        return (await storage.getAsV901(hash)) as Call
+    } else if (storage.isV902) {
+        return (await storage.getAsV902(hash)) as Call
     } else {
         throw new UnknownVersionError(storage.constructor.name)
     }
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 async function getCoucilStorageData(
     ctx: StorageContext,
     hash: Uint8Array
@@ -71,14 +37,36 @@ async function getCoucilStorageData(
     const storage = new CouncilProposalOfStorage(ctx)
     if (!storage.isExists) return undefined
 
-    if (storage.isV9110) {
-        return (await storage.getAsV9110(hash)) as Call
-    } else if (storage.isV9140) {
-        return (await storage.getAsV9140(hash)) as Call
-    } else if (storage.isV9170) {
-        return (await storage.getAsV9170(hash)) as Call
-    } else if (storage.isV9180) {
-        return (await storage.getAsV9180(hash)) as Call
+    if (storage.isV906) {
+        return (await storage.getAsV906(hash)) as Call
+    } else if (storage.isV908) {
+        return (await storage.getAsV908(hash)) as Call
+    } else if (storage.isV910) {
+        return (await storage.getAsV912(hash)) as Call
+    } else if (storage.isV912) {
+        return (await storage.getAsV912(hash)) as Call
+    } else if (storage.isV914) {
+        return (await storage.getAsV914(hash)) as Call
+    } else if (storage.isV915) {
+        return (await storage.getAsV915(hash)) as Call
+    } else if (storage.isV916) {
+        return (await storage.getAsV916(hash)) as Call
+    } else if (storage.isV918) {
+        return (await storage.getAsV918(hash)) as Call
+    } else if (storage.isV920) {
+        return (await storage.getAsV920(hash)) as Call
+    } else if (storage.isV922) {
+        return (await storage.getAsV922(hash)) as Call
+    } else if (storage.isV923) {
+        return (await storage.getAsV923(hash)) as Call
+    } else if (storage.isV926) {
+        return (await storage.getAsV926(hash)) as Call
+    } else if (storage.isV927) {
+        return (await storage.getAsV927(hash)) as Call
+    } else if (storage.isV930) {
+        return (await storage.getAsV930(hash)) as Call
+    } else if (storage.isV932) {
+        return (await storage.getAsV932(hash)) as Call
     } else {
         throw new UnknownVersionError(storage.constructor.name)
     }

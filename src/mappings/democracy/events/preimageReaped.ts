@@ -13,15 +13,15 @@ interface PreimageEventData {
 
 function getEventData(ctx: EventContext): PreimageEventData {
     const event = new DemocracyPreimageReapedEvent(ctx)
-    if (event.isV0) {
-        const [hash, provider, deposit] = event.asV0
+    if (event.isV803) {
+        const [hash, provider, deposit] = event.asV803
         return {
             hash,
             provider,
             deposit,
         }
-    } else if (event.isV9140) {
-        const { proposalHash: hash, provider, deposit } = event.asV9140
+    } else if (event.isV916) {
+        const { proposalHash: hash, provider, deposit } = event.asV916
         return {
             hash,
             provider,

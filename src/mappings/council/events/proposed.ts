@@ -18,16 +18,16 @@ interface CouncilProposalEventData {
 
 function getEventData(ctx: EventContext): CouncilProposalEventData {
     const event = new CouncilProposedEvent(ctx)
-    if (event.isV0) {
-        const [proposer, index, hash, threshold] = event.asV0
+    if (event.isV803) {
+        const [proposer, index, hash, threshold] = event.asV803
         return {
             proposer,
             index,
             hash,
             threshold,
         }
-    } else if (event.isV9140) {
-        const { account, proposalIndex, proposalHash, threshold } = event.asV9140
+    } else if (event.isV916) {
+        const { account, proposalIndex, proposalHash, threshold } = event.asV916
         return {
             proposer: account,
             index: proposalIndex,
