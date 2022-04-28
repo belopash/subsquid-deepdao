@@ -42,7 +42,7 @@ async function getCoucilStorageData(
     } else if (storage.isV908) {
         return (await storage.getAsV908(hash)) as Call
     } else if (storage.isV910) {
-        return (await storage.getAsV912(hash)) as Call
+        return (await storage.getAsV910(hash)) as Call
     } else if (storage.isV912) {
         return (await storage.getAsV912(hash)) as Call
     } else if (storage.isV914) {
