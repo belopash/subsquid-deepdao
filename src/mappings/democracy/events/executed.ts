@@ -18,7 +18,7 @@ function getEventData(ctx: EventContext): number {
     } else if (event.isV1300) {
         return event.asV1300.refIndex
     } else if (event.isV1401) {
-        return event.asV1300.refIndex
+        return event.asV1401.refIndex
     } else {
         throw new UnknownVersionError(event.constructor.name)
     }
