@@ -4,6 +4,7 @@ import * as v1001 from './v1001'
 import * as v1101 from './v1101'
 import * as v1201 from './v1201'
 import * as v1300 from './v1300'
+import * as v1401 from './v1401'
 import * as v900 from './v900'
 
 export class BalancesTotalIssuanceStorage {
@@ -159,6 +160,21 @@ export class CouncilCollectiveProposalOfStorage {
    */
   async getAsV1300(key: v1300.H256): Promise<v1300.Call | undefined> {
     assert(this.isV1300)
+    return this.ctx._chain.getStorage(this.ctx.block.hash, 'CouncilCollective', 'ProposalOf', key)
+  }
+
+  /**
+   *  Actual proposal for a given hash, if it's current.
+   */
+  get isV1401() {
+    return this.ctx._chain.getStorageItemTypeHash('CouncilCollective', 'ProposalOf') === 'bc7932a09e814473cdd716a9c2c5940e312ba50d329c093bff71b700152d184f'
+  }
+
+  /**
+   *  Actual proposal for a given hash, if it's current.
+   */
+  async getAsV1401(key: v1401.H256): Promise<v1401.Call | undefined> {
+    assert(this.isV1401)
     return this.ctx._chain.getStorage(this.ctx.block.hash, 'CouncilCollective', 'ProposalOf', key)
   }
 
@@ -355,6 +371,21 @@ export class TechCommitteeCollectiveProposalOfStorage {
    */
   async getAsV1300(key: v1300.H256): Promise<v1300.Call | undefined> {
     assert(this.isV1300)
+    return this.ctx._chain.getStorage(this.ctx.block.hash, 'TechCommitteeCollective', 'ProposalOf', key)
+  }
+
+  /**
+   *  Actual proposal for a given hash, if it's current.
+   */
+  get isV1401() {
+    return this.ctx._chain.getStorageItemTypeHash('TechCommitteeCollective', 'ProposalOf') === 'bc7932a09e814473cdd716a9c2c5940e312ba50d329c093bff71b700152d184f'
+  }
+
+  /**
+   *  Actual proposal for a given hash, if it's current.
+   */
+  async getAsV1401(key: v1401.H256): Promise<v1401.Call | undefined> {
+    assert(this.isV1401)
     return this.ctx._chain.getStorage(this.ctx.block.hash, 'TechCommitteeCollective', 'ProposalOf', key)
   }
 
