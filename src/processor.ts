@@ -31,12 +31,14 @@ processor.addEventHandler('generalCouncil.Approved', modules.generalCouncil.even
 processor.addEventHandler('generalCouncil.Dissaproved', modules.generalCouncil.events.handleDisapproved)
 processor.addEventHandler('generalCouncil.Closed', modules.generalCouncil.events.handleClosed)
 processor.addEventHandler('generalCouncil.Voted', modules.generalCouncil.events.handleVoted)
+processor.addEventHandler('generalCouncil.Executed', modules.generalCouncil.events.handleExecuted)
 
 processor.addEventHandler('technicalCommittee.Proposed', modules.techComittee.events.handleProposed)
 processor.addEventHandler('technicalCommittee.Approved', modules.techComittee.events.handleApproved)
 processor.addEventHandler('technicalCommittee.Dissaproved', modules.techComittee.events.handleDisapproved)
 processor.addEventHandler('technicalCommittee.Closed', modules.techComittee.events.handleClosed)
 processor.addEventHandler('technicalCommittee.Voted', modules.techComittee.events.handleVoted)
+processor.addEventHandler('technicalCommittee.Executed', modules.techComittee.events.handleExecuted)
 
 processor.addEventHandler('treasury.Proposed', modules.treasury.events.handleProposed)
 processor.addEventHandler('treasury.Awarded', modules.treasury.events.handleAwarded)
